@@ -1,29 +1,33 @@
-﻿public enum RoomType
+﻿
+using System;
+
+[Flags]
+public enum RoomType
 {
     /// <summary>
     /// 普通敌人
     /// </summary>
-    MinorEnemy,
+    MinorEnemy = 1,
     /// <summary>
     /// 精英敌人
     /// </summary>
-    EliteEnemy,
+    EliteEnemy = 2,
     /// <summary>
     /// 商店
     /// </summary>
-    Shop,
+    Shop = 4,
     /// <summary>
     /// 宝箱
     /// </summary>
-    Treasure,
+    Treasure = 8,
     /// <summary>
     /// 休息室
     /// </summary>
-    RestRoom,
+    RestRoom = 16,
     /// <summary>
     /// boss
     /// </summary>
-    Boss
+    Boss = 32,
 }
 
 public enum RoomState
