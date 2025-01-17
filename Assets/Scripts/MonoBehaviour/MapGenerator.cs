@@ -24,6 +24,10 @@ public class MapGenerator : MonoBehaviour
     private List<Room> _roomList = new List<Room>();
 
     private List<LineRenderer> _lineList = new List<LineRenderer>();
+    
+    public List<RoomDataSO> roomDataList = new List<RoomDataSO>();
+    
+    private Dictionary<RoomType, RoomDataSO> roomDataDict  = new Dictionary<RoomType, RoomDataSO>();
 
     private void Awake()
     {
@@ -31,6 +35,11 @@ public class MapGenerator : MonoBehaviour
         screenWidth = screenHeight * Camera.main.aspect;
 
         columnWidth = screenWidth / mapConfigSO.roomBlueprints.Count;
+
+        foreach (var roomData in roomDataList)
+        {
+            roomDataDict.Add(roomData.roomType, roomData);
+        }
     }
 
     private void Start()
@@ -71,6 +80,8 @@ public class MapGenerator : MonoBehaviour
                 newPosition.y = startHeight - roomGapY * i;
 
                 var room = Instantiate(roomPrefab, newPosition, Quaternion.identity, transform);
+                RoomType newType = GetRandomRoomType(mapConfigSO.roomBlueprints[column].roomType);
+                room.SetRoomData(column, i, GetRoomData(newType));
                 _roomList.Add(room);
                 currentColumnRooms.Add(room);
             }
@@ -132,5 +143,16 @@ public class MapGenerator : MonoBehaviour
         _roomList.Clear();
         _lineList.Clear();
         CreateRoom();
+    }
+
+    private RoomDataSO GetRoomData(RoomType roomType)
+    {
+        return roomDataDict[roomType];
+    }
+    
+    private RoomType GetRandomRoomType(RoomType roomType)
+    {
+        string[] options = roomType.ToString().Split(',');
+        return (RoomType)Enum.Parse(typeof(RoomType), options[Random.Range(0, options.Length)]);
     }
 }
