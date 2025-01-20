@@ -1,16 +1,13 @@
+using System;
 using UnityEngine;
 
 public class FinishRoom : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public ObjectEventSO loadMapEvent;
 
-    // Update is called once per frame
-    void Update()
+    private void OnMouseDown()
     {
-        
+        // 返回地图
+        loadMapEvent.RaiseEvent(null, this);
     }
 }
