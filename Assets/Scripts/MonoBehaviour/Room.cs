@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Room : MonoBehaviour
@@ -25,20 +26,21 @@ public class Room : MonoBehaviour
     [Header("广播")]
     public ObjectEventSO loadRoomEvent;
 
+    /// <summary>
+    /// 所有与之相连的房间的行列号
+    /// </summary>
+    public List<Vector2Int> linkToRooms = new List<Vector2Int>();
+
     private void Awake()
     {
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    private void Start()
-    {
-        SetRoomData(0, 0, roomData);
-    }
-
     private void OnMouseDown()
     {
         Debug.Log($"点击了房间：{roomData.roomType}");
-        loadRoomEvent.RaiseEvent(roomData, this);
+        if (state == RoomState.Attainable)
+            loadRoomEvent.RaiseEvent(this, this);
     }
 
     /// <summary>
@@ -54,5 +56,14 @@ public class Room : MonoBehaviour
         this.roomData = roomData;
         
         _spriteRenderer.sprite = roomData.roomIcon;
+
+        _spriteRenderer.color = state switch
+        {
+
+            RoomState.Locked => new Color(0.5f, 0.5f, 0.5f, 1f),
+            RoomState.Visited => new Color(0.5f, 0.8f, 0.5f, 1f),
+            RoomState.Attainable => Color.white,
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 }

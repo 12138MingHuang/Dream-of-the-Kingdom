@@ -93,6 +93,10 @@ public class MapGenerator : MonoBehaviour
 
                 var room = Instantiate(roomPrefab, newPosition, Quaternion.identity, transform);
                 RoomType newType = GetRandomRoomType(mapConfigSO.roomBlueprints[column].roomType);
+
+                // 如果是第一列，则房间状态为可到达的
+                room.state = column == 0 ? RoomState.Attainable : RoomState.Locked;
+                
                 room.SetRoomData(column, i, GetRoomData(newType));
                 _roomList.Add(room);
                 currentColumnRooms.Add(room);
@@ -115,20 +119,29 @@ public class MapGenerator : MonoBehaviour
 
         foreach (var room in column1)
         {
-            Room targetRoom = ConnectToRandomRoom(room, column2);
+            Room targetRoom = ConnectToRandomRoom(room, column2, false);
             connectedColumn2Rooms.Add(targetRoom);
         }
         foreach (var room in column2)
         {
             if (!connectedColumn2Rooms.Contains(room))
             {
-                ConnectToRandomRoom(room, column1);
+                ConnectToRandomRoom(room, column1, true);
             }
         }
     }
-    private Room ConnectToRandomRoom(Room room, List<Room> column2)
+    private Room ConnectToRandomRoom(Room room, List<Room> column2, bool check)
     {
         Room targetRoom = column2[Random.Range(0, column2.Count)];
+
+        if (check)
+        {
+            targetRoom.linkToRooms.Add(new Vector2Int(room.column, room.line));
+        }
+        else
+        {
+            room.linkToRooms.Add(new Vector2Int(targetRoom.column, targetRoom.line));
+        }
 
         // 创建房间之间的连线
         var line = Instantiate(linePrefab, room.transform);
@@ -184,7 +197,8 @@ public class MapGenerator : MonoBehaviour
                 colum = _roomList[i].column,
                 line = _roomList[i].line,
                 roomData = _roomList[i].roomData,
-                roomState = _roomList[i].state
+                roomState = _roomList[i].state,
+                linkToRooms = _roomList[i].linkToRooms
             };
             
             mapLayout.mapRoomDataList.Add(room);
@@ -213,6 +227,7 @@ public class MapGenerator : MonoBehaviour
             var newPos = new Vector3(mapRoomData.posX, mapRoomData.posY, 0);
             var newRoom = Instantiate(roomPrefab, newPos, Quaternion.identity, transform);
             newRoom.state = mapRoomData.roomState;
+            newRoom.linkToRooms = mapRoomData.linkToRooms;
             newRoom.SetRoomData(mapRoomData.colum, mapRoomData.line, mapRoomData.roomData);
             
             _roomList.Add(newRoom);
