@@ -5,8 +5,13 @@ using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour
 {
+    [Header("地图配置")]
     public MapConfigSO mapConfigSO;
+    [Header("地图布局")]
+    public MapLayoutSO mapLayout;
+    [Header("房间预设体")]
     public Room roomPrefab;
+    [Header("连线预设体")]
     public LineRenderer linePrefab;
 
     private float screenHeight;
@@ -24,10 +29,10 @@ public class MapGenerator : MonoBehaviour
     private List<Room> _roomList = new List<Room>();
 
     private List<LineRenderer> _lineList = new List<LineRenderer>();
-    
+
     public List<RoomDataSO> roomDataList = new List<RoomDataSO>();
-    
-    private Dictionary<RoomType, RoomDataSO> roomDataDict  = new Dictionary<RoomType, RoomDataSO>();
+
+    private Dictionary<RoomType, RoomDataSO> roomDataDict = new Dictionary<RoomType, RoomDataSO>();
 
     private void Awake()
     {
@@ -42,9 +47,16 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        CreateRoom();
+        if(mapLayout.mapRoomDataList != null && mapLayout.mapRoomDataList.Count > 0)
+        {
+            LoadRoom();
+        }
+        else
+        {
+            CreateRoom();
+        }
     }
 
     /// <summary>
@@ -85,15 +97,17 @@ public class MapGenerator : MonoBehaviour
                 _roomList.Add(room);
                 currentColumnRooms.Add(room);
             }
-            
+
             // 判断当前列是否为第一列，如果不是，则连接上一列
             if (previousColumnRooms.Count > 0)
             {
                 CreateConnections(previousColumnRooms, currentColumnRooms);
             }
-            
+
             previousColumnRooms = currentColumnRooms;
         }
+        
+        SaveRoom();
     }
     private void CreateConnections(List<Room> column1, List<Room> column2)
     {
@@ -149,10 +163,70 @@ public class MapGenerator : MonoBehaviour
     {
         return roomDataDict[roomType];
     }
-    
+
     private RoomType GetRandomRoomType(RoomType roomType)
     {
         string[] options = roomType.ToString().Split(',');
         return (RoomType)Enum.Parse(typeof(RoomType), options[Random.Range(0, options.Length)]);
+    }
+
+    private void SaveRoom()
+    {
+        mapLayout.mapRoomDataList = new List<MapRoomData>();
+        
+        // 添加所有已经生成的房间数据
+        for (int i = 0; i < _roomList.Count; i++)
+        {
+            var room = new MapRoomData()
+            {
+                posX = _roomList[i].transform.position.x,
+                posY = _roomList[i].transform.position.y,
+                colum = _roomList[i].column,
+                line = _roomList[i].line,
+                roomData = _roomList[i].roomData,
+                roomState = _roomList[i].state
+            };
+            
+            mapLayout.mapRoomDataList.Add(room);
+        }
+        
+        mapLayout.linePositionList = new List<LinePosition>();
+        // 添加所有已经生成的连线数据
+        for (int i = 0; i < _lineList.Count; i++)
+        {
+            var line = new LinePosition()
+            {
+                startPos = new SerializeVector3(_lineList[i].GetPosition(0)),
+                endPos = new SerializeVector3(_lineList[i].GetPosition(1)),
+            };
+            
+            mapLayout.linePositionList.Add(line);
+        }
+    }
+    
+    private void LoadRoom()
+    {
+        // 读取房间数据生成房间
+        for (int i = 0; i < mapLayout.mapRoomDataList.Count; i++)
+        {
+            MapRoomData mapRoomData = mapLayout.mapRoomDataList[i];
+            var newPos = new Vector3(mapRoomData.posX, mapRoomData.posY, 0);
+            var newRoom = Instantiate(roomPrefab, newPos, Quaternion.identity, transform);
+            newRoom.state = mapRoomData.roomState;
+            newRoom.SetRoomData(mapRoomData.colum, mapRoomData.line, mapRoomData.roomData);
+            
+            _roomList.Add(newRoom);
+        }
+        
+        // 读取连线数据生成房间连线
+        for (int i = 0; i < mapLayout.linePositionList.Count; i++)
+        {
+            LinePosition linePosition = mapLayout.linePositionList[i];
+            var line = Instantiate(linePrefab, transform);
+            line.SetPosition(0, linePosition.startPos.ToVector3());
+            line.SetPosition(1, linePosition.endPos.ToVector3());
+            
+            _lineList.Add(line);
+        }
     }
 }
