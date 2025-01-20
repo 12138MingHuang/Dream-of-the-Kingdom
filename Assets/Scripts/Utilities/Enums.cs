@@ -45,3 +45,19 @@ public enum RoomState
     /// </summary>
     Attainable
 }
+
+public enum CardType
+{
+    /// <summary>
+    /// 攻击
+    /// </summary>
+    Attack,
+    /// <summary>
+    /// 防御
+    /// </summary>
+    Defense,
+    /// <summary>
+    /// 能力
+    /// </summary>
+    Abilities
+}
