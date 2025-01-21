@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CardLayoutManager : MonoBehaviour
@@ -7,10 +8,18 @@ public class CardLayoutManager : MonoBehaviour
     public float maxWidth = 7f;
     public float cardSpacing = 2f;
     public Vector3 centerPoint;
+    [Header("弧形参数")]
+    public float angleBetweenCards = 7f;
+    public float radius = 17f;
     
     [SerializeField]
     private List<Vector3> cardPositions = new List<Vector3>();
     private List<Quaternion> cardRotations = new List<Quaternion>();
+
+    private void Awake()
+    {
+        centerPoint = isHorizontal ? Vector3.up * -4.5f : Vector3.up * -21.5f;
+    }
 
     /// <summary>
     /// 获取卡片位置和旋转信息
@@ -48,5 +57,26 @@ public class CardLayoutManager : MonoBehaviour
                 cardRotations.Add(rotation);
             }
         }
+        else
+        {
+            float cardAngle = (numberOfCards - 1) * angleBetweenCards / 2;
+
+            for (int i = 0; i < numberOfCards; i++)
+            {
+                var pos = FanCardPosition(cardAngle - i * angleBetweenCards);
+                var rotation = Quaternion.Euler(0f, 0f, cardAngle - angleBetweenCards * i);
+                
+                cardPositions.Add(pos);
+                cardRotations.Add(rotation);
+            }
+        }
+    }
+
+    private Vector3 FanCardPosition(float angle)
+    {
+        return new Vector3(
+            centerPoint.x - Mathf.Sin(Mathf.Deg2Rad * angle) * radius,
+            centerPoint.y + Mathf.Cos(Mathf.Deg2Rad * angle) * radius,
+            0f);
     }
 }
