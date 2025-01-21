@@ -7,6 +7,9 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Card currentCard;
     private bool canMove;
     private bool canExecute;
+    
+    public GameObject arrowPrefab;
+    private GameObject currentArrow;
 
     private void Awake()
     {
@@ -19,6 +22,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
 
             case CardType.Attack:
+                currentArrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
                 break;
             case CardType.Defense:
             case CardType.Abilities:
@@ -40,6 +44,9 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
     public void OnEndDrag(PointerEventData eventData)
     {
+        if(currentArrow != null)
+            Destroy(currentArrow);
+        
         if (canExecute)
         {
             
