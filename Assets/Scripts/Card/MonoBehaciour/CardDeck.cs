@@ -5,6 +5,7 @@ using UnityEngine;
 public class CardDeck : MonoBehaviour
 {
     public CardManager cardManager;
+    public CardLayoutManager cardLayoutManager;
 
     private List<CardDataSO> drawDeck = new List<CardDataSO>(); // 抽牌堆
     private List<CardDataSO> discardDeck = new List<CardDataSO>(); // 弃牌堆
@@ -14,6 +15,7 @@ public class CardDeck : MonoBehaviour
     {
         // 测试用
         InitializeDeck();
+        DrawCard(3);
     }
 
     public void InitializeDeck()
@@ -45,6 +47,18 @@ public class CardDeck : MonoBehaviour
             card.Init(currentCardData);
             
             handCardObjectList.Add(card);
+            
+            SetCardLayout();
+        }
+    }
+    
+    private void SetCardLayout()
+    {
+        for (int i = 0; i < handCardObjectList.Count; i++)
+        {
+            Card currentCard = handCardObjectList[i];
+            CardTransform cardTransform = cardLayoutManager.GetCardTransform(i, handCardObjectList.Count);
+            currentCard.transform.SetPositionAndRotation(cardTransform.pos, cardTransform.rotation);
         }
     }
     

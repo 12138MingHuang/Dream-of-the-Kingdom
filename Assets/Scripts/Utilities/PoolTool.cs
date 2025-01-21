@@ -2,13 +2,14 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
+[DefaultExecutionOrder(-100)]
 public class PoolTool : MonoBehaviour
 {
     public GameObject objPrefab;
 
     private ObjectPool<GameObject> pool;
 
-    private void Start()
+    private void Awake()
     {
         // 创建一个对象池，用于管理 GameObject 的生命周期
         pool = new ObjectPool<GameObject>(
