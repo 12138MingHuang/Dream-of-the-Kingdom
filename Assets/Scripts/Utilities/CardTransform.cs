@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CardTransform
+public struct CardTransform
 {
     public Vector3 pos;
     public Quaternion rotation;
