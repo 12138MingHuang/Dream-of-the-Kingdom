@@ -60,16 +60,18 @@ public class CardDeck : MonoBehaviour
         for (int i = 0; i < handCardObjectList.Count; i++)
         {
             Card currentCard = handCardObjectList[i];
+            currentCard.isAnimating = true;
             CardTransform cardTransform = cardLayoutManager.GetCardTransform(i, handCardObjectList.Count);
             // currentCard.transform.SetPositionAndRotation(cardTransform.pos, cardTransform.rotation);
             currentCard.transform.DOScale(Vector3.one, 0.2f).SetDelay(delay).onComplete = () =>
             {
-                currentCard.transform.DOMove(cardTransform.pos, 0.5f);
+                currentCard.transform.DOMove(cardTransform.pos, 0.5f).onComplete = () => currentCard.isAnimating = false;
                 currentCard.transform.DORotateQuaternion(cardTransform.rotation, 0.5f);
             };
 
             // 设置卡牌顺序
             currentCard.GetComponent<SortingGroup>().sortingOrder = i;
+            currentCard.UpdatePositionRotation(cardTransform.pos, cardTransform.rotation);
         }
     }
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
-public class Card : MonoBehaviour
+public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("组件")]
     public SpriteRenderer cardSprite;
@@ -11,6 +13,12 @@ public class Card : MonoBehaviour
     public TextMeshPro typeText;
     
     public CardDataSO cardData;
+
+    public Vector3 orginalPosition;
+    public Quaternion originalRotation;
+    public int orginalLayerOrder;
+    
+    public bool isAnimating;
 
     private void Start()
     {
@@ -31,5 +39,32 @@ public class Card : MonoBehaviour
             CardType.Abilities => "能力",
             _ => throw new ArgumentOutOfRangeException()
         };
+    }
+    
+    public void UpdatePositionRotation(Vector3 position, Quaternion rotation)
+    {
+        orginalPosition = position;
+        originalRotation = rotation;
+        orginalLayerOrder = GetComponent<SortingGroup>().sortingOrder;
+    }
+    
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (isAnimating) return;
+        
+        transform.position = orginalPosition + Vector3.up;
+        transform.rotation = Quaternion.identity;
+        GetComponent<SortingGroup>().sortingOrder = 20;
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (isAnimating) return;
+        
+        RestCardTransform();
+    }
+    
+    private void RestCardTransform()
+    {
+        transform.SetPositionAndRotation(orginalPosition, originalRotation);
     }
 }

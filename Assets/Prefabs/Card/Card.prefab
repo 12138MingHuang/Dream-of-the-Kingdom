@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 72576950965266937}
   - component: {fileID: 1293902425181689760}
   - component: {fileID: 8653710370689440269}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,6 +198,10 @@ MonoBehaviour:
   descText: {fileID: 8379326472795493197}
   typeText: {fileID: 4395422844704499680}
   cardData: {fileID: 0}
+  orginalPosition: {x: 0, y: 0, z: 0}
+  originalRotation: {x: 0, y: 0, z: 0, w: 0}
+  orginalLayerOrder: 0
+  isAnimating: 0
 --- !u!1 &1646805102041649476
 GameObject:
   m_ObjectHideFlags: 0
