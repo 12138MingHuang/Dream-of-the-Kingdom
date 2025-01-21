@@ -24,6 +24,11 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        currentCardLibrary.cardLibraryList.Clear();
+    }
+
     #region 获取项目卡牌
     /// <summary>
     /// 初始化获得所有项目卡牌资源
@@ -51,7 +56,9 @@ public class CardManager : MonoBehaviour
     /// <returns> 卡牌对象 </returns>
     public GameObject GetCardObject()
     {
-        return poolTool.GetObjectFromPool();
+        var cardObj = poolTool.GetObjectFromPool();
+        cardObj.transform.localScale = Vector3.zero;
+        return cardObj;
     }
     /// <summary>
     /// 丢弃卡牌，将其返回对象池中
