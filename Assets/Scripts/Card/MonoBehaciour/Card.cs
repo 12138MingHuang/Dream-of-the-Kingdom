@@ -63,7 +63,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         RestCardTransform();
     }
     
-    private void RestCardTransform()
+    public void RestCardTransform()
     {
         transform.SetPositionAndRotation(orginalPosition, originalRotation);
     }
