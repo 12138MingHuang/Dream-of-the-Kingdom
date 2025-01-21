@@ -32,6 +32,8 @@ public class CardDeck : MonoBehaviour
                 drawDeck.Add(entry.cardData);
             }
         }
+        
+        ShuffleDeck();
     }
 
     private void DrawCard(int amount)
@@ -40,7 +42,11 @@ public class CardDeck : MonoBehaviour
         {
             if (drawDeck.Count == 0)
             {
-                // TODO: 弃牌堆为空时，重新洗牌
+                foreach (var item in discardDeck)
+                {
+                    drawDeck.Add(item);
+                }
+                ShuffleDeck();
             }
 
             CardDataSO currentCardData = drawDeck[0];
@@ -73,6 +79,36 @@ public class CardDeck : MonoBehaviour
             currentCard.GetComponent<SortingGroup>().sortingOrder = i;
             currentCard.UpdatePositionRotation(cardTransform.pos, cardTransform.rotation);
         }
+    }
+
+    /// <summary>
+    /// 洗牌
+    /// </summary>
+    private void ShuffleDeck()
+    {
+        discardDeck.Clear();
+
+        for (int i = 0; i < drawDeck.Count; i++)
+        {
+            CardDataSO temp = drawDeck[i];
+            int randomIndex = UnityEngine.Random.Range(i, drawDeck.Count);
+            drawDeck[i] = drawDeck[randomIndex];
+            drawDeck[randomIndex] = temp;
+        }
+    }
+
+    /// <summary>
+    /// 弃牌逻辑, 事件函数
+    /// </summary>
+    /// <param name="card"> 弃牌对象 </param>
+    private void DiscardDeck(Card card)
+    {
+        discardDeck.Add(card.cardData);
+        handCardObjectList.Remove(card);
+        
+        cardManager.DiscardCard(card.gameObject);
+        
+        SetCardLayout(0f);
     }
 
     [ContextMenu("测试抽牌")]
