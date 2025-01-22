@@ -4,6 +4,8 @@ using UnityEngine.UIElements;
 
 public class HealthBarController : MonoBehaviour
 {
+    private CharacterBase currentCharacter;
+    
     [Header("Elements")]
     public Transform healthBarTrans;
     private UIDocument healthBarDoc;
@@ -11,21 +13,49 @@ public class HealthBarController : MonoBehaviour
 
     private void Awake()
     {
-        healthBarDoc = GetComponent<UIDocument>();
-        healthBar = healthBarDoc.rootVisualElement.Q<ProgressBar>();
-        MoveToWorldPosition(healthBar, healthBarTrans.position, Vector2.zero);
+        currentCharacter = GetComponent<CharacterBase>();
     }
+
+    private void Start()
+    {
+        InitHealthBar();
+    }
+
     private void MoveToWorldPosition(VisualElement element, Vector3 worldPos, Vector2 size)
     {
         Rect rect = RuntimePanelUtils.CameraTransformWorldToPanelRect(element.panel, worldPos, size, Camera.main);
         element.transform.position = rect.position;
     }
     
-    [ContextMenu("Test")]
-    public void Test()
+    [ContextMenu("InitHealthBar")]
+    public void InitHealthBar()
     {
         healthBarDoc = GetComponent<UIDocument>();
         healthBar = healthBarDoc.rootVisualElement.Q<ProgressBar>();
+        
+        healthBar.highValue = currentCharacter.MaxHP;
         MoveToWorldPosition(healthBar, healthBarTrans.position, Vector2.zero);
+    }
+
+    private void Update()
+    {
+        UpdateHealthBar();
+    }
+
+    public void UpdateHealthBar()
+    {
+        if (currentCharacter.isDead)
+        {
+            healthBar.style.display = DisplayStyle.None;
+            return;
+        }
+
+        if (healthBar != null)
+        {
+            healthBar.style.display = DisplayStyle.Flex;
+            healthBar.title = $"{currentCharacter.CurrentHP}/{currentCharacter.MaxHP}";
+
+            healthBar.value = currentCharacter.CurrentHP;
+        }
     }
 }

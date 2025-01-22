@@ -16,7 +16,7 @@ public class CharacterBase : MonoBehaviour
     }
     
     protected Animator animator;
-    private bool isDead;
+    public bool isDead;
 
     protected virtual void Awake()
     {
