@@ -10,7 +10,7 @@ public class CardDeck : MonoBehaviour
     public CardLayoutManager cardLayoutManager;
     public Vector3 deckPosition;
 
-    private List<CardDataSO> drawDeck = new List<CardDataSO>(); // 抽牌堆
+    public List<CardDataSO> drawDeck = new List<CardDataSO>(); // 抽牌堆
     private List<CardDataSO> discardDeck = new List<CardDataSO>(); // 弃牌堆
     private List<Card> handCardObjectList = new List<Card>(); // 当前手牌(每回合)
 
@@ -100,9 +100,11 @@ public class CardDeck : MonoBehaviour
     /// <summary>
     /// 弃牌逻辑, 事件函数
     /// </summary>
-    /// <param name="card"> 弃牌对象 </param>
-    private void DiscardDeck(Card card)
+    /// <param name="obj"> 弃牌对象 </param>
+    public void DiscardCard(object obj)
     {
+        Card card = obj as Card;
+        
         discardDeck.Add(card.cardData);
         handCardObjectList.Remove(card);
         

@@ -10,6 +10,8 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     
     public GameObject arrowPrefab;
     private GameObject currentArrow;
+    
+    private CharacterBase targetCharacter;
 
     private void Awake()
     {
@@ -41,6 +43,19 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             currentCard.transform.position = worldPos;
             canExecute = worldPos.y > 1f;
         }
+        else
+        {
+            if(eventData.pointerEnter == null) return;
+
+            if (eventData.pointerEnter.CompareTag("Enemy"))
+            {
+                canExecute = true;
+                targetCharacter = eventData.pointerEnter.GetComponent<CharacterBase>();
+                return;
+            }
+            canExecute = false;
+            targetCharacter = null;
+        }
     }
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -49,7 +64,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         
         if (canExecute)
         {
-            
+            currentCard.ExecuteCardEffects(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>(), targetCharacter);
         }
         else
         {

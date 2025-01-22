@@ -19,6 +19,9 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public int orginalLayerOrder;
     
     public bool isAnimating;
+    
+    [Header("广播事件")]
+    public ObjectEventSO discardCardEvent;
 
     private void Start()
     {
@@ -66,5 +69,15 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void RestCardTransform()
     {
         transform.SetPositionAndRotation(orginalPosition, originalRotation);
+    }
+
+    public void ExecuteCardEffects(CharacterBase from, CharacterBase target)
+    {
+        discardCardEvent?.RaiseEvent(this, this);
+        
+        foreach (var effect in cardData.effects)
+        {
+            effect.Execute(from, target);
+        }
     }
 }

@@ -456,6 +456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1201981022}
   - component: {fileID: 1201981021}
+  - component: {fileID: 1201981023}
   m_Layer: 0
   m_Name: CardDeck
   m_TagString: Untagged
@@ -478,6 +479,7 @@ MonoBehaviour:
   cardManager: {fileID: 359367223}
   cardLayoutManager: {fileID: 949155670}
   deckPosition: {x: 0, y: 0, z: 0}
+  drawDeck: []
 --- !u!4 &1201981022
 Transform:
   m_ObjectHideFlags: 0
@@ -493,6 +495,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1201981023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201981020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ee7e3764a64e5ba649b4ba8c08248e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSO: {fileID: 11400000, guid: 74d7c59c5e0dae14c9eeab058eacf81e, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1201981021}
+        m_TargetAssemblyTypeName: CardDeck, Assembly-CSharp
+        m_MethodName: DiscardCard
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1482338213
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +796,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1836876241}
+  - component: {fileID: 1836876242}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -789,6 +820,20 @@ Transform:
   - {fileID: 1760765954}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1836876242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836876240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca84865975f0407db25f3980421041e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 100
+  hp: {fileID: 11400000, guid: e7cc1ff7cff51064f885fc58c91c392f, type: 2}
 --- !u!1 &1943872509
 GameObject:
   m_ObjectHideFlags: 0

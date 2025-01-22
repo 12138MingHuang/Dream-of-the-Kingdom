@@ -61,3 +61,19 @@ public enum CardType
     /// </summary>
     Abilities
 }
+
+public enum EffectTargetType
+{
+    /// <summary>
+    /// 自己
+    /// </summary>
+    Self,
+    /// <summary>
+    /// 目标
+    /// </summary>
+    Target,
+    /// <summary>
+    /// 所有
+    /// </summary>
+    All
+}
