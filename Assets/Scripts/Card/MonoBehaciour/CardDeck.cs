@@ -22,7 +22,6 @@ public class CardDeck : MonoBehaviour
     {
         // 测试用
         InitializeDeck();
-        DrawCard(3);
     }
 
     public void InitializeDeck()
@@ -38,6 +37,11 @@ public class CardDeck : MonoBehaviour
         }
         
         ShuffleDeck();
+    }
+
+    public void NewTurnDrawCards()
+    {
+        DrawCard(4);
     }
 
     private void DrawCard(int amount)
@@ -122,6 +126,17 @@ public class CardDeck : MonoBehaviour
         discardCountEvent?.RaiseEvent(discardDeck.Count, this);
         
         SetCardLayout(0f);
+    }
+
+    public void OnPlayerTurnEnd()
+    {
+        for (int i = 0; i < handCardObjectList.Count; i++)
+        {
+            discardDeck.Add(handCardObjectList[i].cardData);
+            cardManager.DiscardCard(handCardObjectList[i].gameObject);
+        }
+        
+        handCardObjectList.Clear();
     }
 
     [ContextMenu("测试抽牌")]
