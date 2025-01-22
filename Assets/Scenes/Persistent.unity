@@ -362,6 +362,9 @@ GameObject:
   m_Component:
   - component: {fileID: 838470974}
   - component: {fileID: 838470973}
+  - component: {fileID: 838470975}
+  - component: {fileID: 838470977}
+  - component: {fileID: 838470976}
   m_Layer: 0
   m_Name: GameplayPanel
   m_TagString: Untagged
@@ -403,6 +406,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &838470975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838470972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deddf435c66e4996ab3e5348e41f2228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &838470976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838470972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b1e536df4b4ab8bb8194a9e5e0da20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSO: {fileID: 11400000, guid: 6cb9b4d1566d77f48a78e624e68f1d82, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 838470975}
+        m_TargetAssemblyTypeName: GameplayPanel, Assembly-CSharp
+        m_MethodName: UpdateDiscardDeckAmount
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &838470977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838470972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b1e536df4b4ab8bb8194a9e5e0da20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSO: {fileID: 11400000, guid: 5b33ab4a8d233a642bfcd76e7c41e9c6, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 838470975}
+        m_TargetAssemblyTypeName: GameplayPanel, Assembly-CSharp
+        m_MethodName: UpdateDrawDeckAmount
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &949155669
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,6 +633,8 @@ MonoBehaviour:
   cardLayoutManager: {fileID: 949155670}
   deckPosition: {x: 0, y: 0, z: 0}
   drawDeck: []
+  drawCountEvent: {fileID: 11400000, guid: 5b33ab4a8d233a642bfcd76e7c41e9c6, type: 2}
+  discardCountEvent: {fileID: 11400000, guid: 6cb9b4d1566d77f48a78e624e68f1d82, type: 2}
 --- !u!4 &1201981022
 Transform:
   m_ObjectHideFlags: 0
