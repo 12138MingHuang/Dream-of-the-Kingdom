@@ -411,6 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 50
   hp: {fileID: 11400000, guid: 7e1f5fe3a705894438f7b86811d96f86, type: 2}
+  defense: {fileID: 11400000, guid: f4072c4c1884f544e96c8d839cd02529, type: 2}
   isDead: 0
 --- !u!61 &1836876243
 BoxCollider2D:
