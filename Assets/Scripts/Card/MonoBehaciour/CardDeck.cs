@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 
 public class CardDeck : MonoBehaviour
 {
+    public Player player;
     public CardManager cardManager;
     public CardLayoutManager cardLayoutManager;
     public Vector3 deckPosition;
@@ -76,8 +77,9 @@ public class CardDeck : MonoBehaviour
         for (int i = 0; i < handCardObjectList.Count; i++)
         {
             Card currentCard = handCardObjectList[i];
-            currentCard.isAnimating = true;
             CardTransform cardTransform = cardLayoutManager.GetCardTransform(i, handCardObjectList.Count);
+            currentCard.UpdateCardState(); // 更新卡牌能量状态
+            currentCard.isAnimating = true;
             // currentCard.transform.SetPositionAndRotation(cardTransform.pos, cardTransform.rotation);
             currentCard.transform.DOScale(Vector3.one, 0.2f).SetDelay(delay).onComplete = () =>
             {

@@ -51,4 +51,23 @@ public class GameplayPanel : MonoBehaviour
     {
         discardAmountLabel.text = $"{amount}";
     }
+
+    public void UpdateEnergyAmount(int amount)
+    {
+        energyAmountLabel.text = $"{amount}";
+    }
+
+    public void OnEnemyTurnBegin()
+    {
+        endTurnButton.SetEnabled(false);
+        turnLabel.text = "敌方回合";
+        turnLabel.style.color = Color.red;
+    }
+
+    public void OnPlayerTurnBegin()
+    {
+        endTurnButton.SetEnabled(true);
+        turnLabel.text = "玩家回合";
+        turnLabel.style.color = Color.white;
+    }
 }

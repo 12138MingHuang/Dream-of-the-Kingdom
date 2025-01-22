@@ -18,10 +18,14 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Quaternion originalRotation;
     public int orginalLayerOrder;
     
+    public Player player;
+    
     public bool isAnimating;
+    public bool isAvailable;
     
     [Header("广播事件")]
     public ObjectEventSO discardCardEvent;
+    public IntEventSO constManaEvent;
 
     private void Start()
     {
@@ -42,6 +46,8 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             CardType.Abilities => "能力",
             _ => throw new ArgumentOutOfRangeException()
         };
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
     
     public void UpdatePositionRotation(Vector3 position, Quaternion rotation)
@@ -73,11 +79,18 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void ExecuteCardEffects(CharacterBase from, CharacterBase target)
     {
+        constManaEvent?.RaiseEvent(cardData.cost, this);
         discardCardEvent?.RaiseEvent(this, this);
         
         foreach (var effect in cardData.effects)
         {
             effect.Execute(from, target);
         }
+    }
+
+    public void UpdateCardState()
+    {
+        isAvailable = cardData.cost <= player.CurrentMana;
+        costText.color = isAvailable ? Color.green : Color.red;
     }
 }

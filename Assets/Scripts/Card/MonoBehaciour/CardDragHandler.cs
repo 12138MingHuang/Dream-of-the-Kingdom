@@ -26,6 +26,8 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if(!currentCard.isAvailable) return;
+        
         switch (currentCard.cardData.cardType)
         {
 
@@ -40,6 +42,8 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
     public void OnDrag(PointerEventData eventData)
     {
+        if(!currentCard.isAvailable) return;
+        
         if (canMove)
         {
             currentCard.isAnimating = true;
@@ -65,12 +69,14 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
     public void OnEndDrag(PointerEventData eventData)
     {
+        if(!currentCard.isAvailable) return;
+        
         if(currentArrow != null)
             Destroy(currentArrow);
         
         if (canExecute)
         {
-            currentCard.ExecuteCardEffects(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>(), targetCharacter);
+            currentCard.ExecuteCardEffects(currentCard.player, targetCharacter);
         }
         else
         {
