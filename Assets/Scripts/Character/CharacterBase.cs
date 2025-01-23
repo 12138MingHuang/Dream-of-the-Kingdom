@@ -6,6 +6,7 @@ public class CharacterBase : MonoBehaviour
     public int maxHp;
     public IntVariable hp;
     public IntVariable defense;
+    public IntVariable buffRound;
     public int CurrentHP
     {
         get => hp.currentValue;
@@ -20,6 +21,10 @@ public class CharacterBase : MonoBehaviour
     public bool isDead;
 
     public VFXController vfxController;
+
+    // 强化效果
+    public float baseStrength = 1f;
+    private float strengthEffect = 0.5f;
     
     protected virtual void Awake()
     {
@@ -30,7 +35,7 @@ public class CharacterBase : MonoBehaviour
     {
         hp.maxValue = maxHp;
         CurrentHP = MaxHP;
-        
+        buffRound.currentValue = buffRound.maxValue;
         ResetDefense();
     }
 
@@ -69,5 +74,33 @@ public class CharacterBase : MonoBehaviour
         CurrentHP = Mathf.Min(CurrentHP, MaxHP);
         
         vfxController.BuffPlay();
+    }
+    
+    public void SetUpStrength(int round, bool isPositive)
+    {
+        if (isPositive)
+        {
+            float newStrength = strengthEffect + baseStrength;
+            baseStrength = Mathf.Min(newStrength, 1.5f);
+            vfxController.BuffPlay();
+        }
+        else
+        {
+            vfxController.DeBuffPlay();
+            baseStrength = 1 - strengthEffect;
+        }
+
+        var currentRound = buffRound.currentValue + round;
+        buffRound.SetValue(baseStrength == 1 ? 0 : currentRound);
+    }
+
+    public void UpdateStrengthRound()
+    {
+        buffRound.SetValue(buffRound.currentValue - 1);
+        if(buffRound.currentValue <= 0)
+        {
+            buffRound.SetValue(0);
+            baseStrength = 1;
+        }
     }
 }

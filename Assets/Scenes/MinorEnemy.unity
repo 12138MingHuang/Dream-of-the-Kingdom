@@ -225,7 +225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &230227310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,6 +615,7 @@ MonoBehaviour:
   maxHp: 50
   hp: {fileID: 11400000, guid: 7e1f5fe3a705894438f7b86811d96f86, type: 2}
   defense: {fileID: 11400000, guid: f4072c4c1884f544e96c8d839cd02529, type: 2}
+  buffRound: {fileID: 11400000, guid: b11453ec51ee84f4a9e080a05ecd2fe5, type: 2}
   isDead: 0
   vfxController: {fileID: 1369950863}
 --- !u!61 &1836876243
@@ -714,7 +715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1915788906
 Transform:
   m_ObjectHideFlags: 0

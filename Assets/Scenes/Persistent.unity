@@ -371,7 +371,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &689516834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,7 +1108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1317028467
 Transform:
   m_ObjectHideFlags: 0
@@ -1561,8 +1561,10 @@ MonoBehaviour:
   maxHp: 100
   hp: {fileID: 11400000, guid: e7cc1ff7cff51064f885fc58c91c392f, type: 2}
   defense: {fileID: 11400000, guid: b2379cc107ee2b64a961c1c9a26f27f3, type: 2}
+  buffRound: {fileID: 11400000, guid: 438b784fb9ab2ad45866c200de70ede2, type: 2}
   isDead: 0
   vfxController: {fileID: 1933487594}
+  baseStrength: 1
   playMana: {fileID: 11400000, guid: 2c16ac6acd48cab4c86b8a3faf2bb8ff, type: 2}
   maxMana: 3
 --- !u!114 &1836876243
@@ -1578,6 +1580,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarTrans: {fileID: 2085687508}
+  buffSprite: {fileID: 21300000, guid: 810448b82870c45058f8b2de5423274a, type: 3}
+  deBuffSprite: {fileID: 21300000, guid: d7f03361f8c0a4e1293a0b3eb59d0320, type: 3}
 --- !u!114 &1836876244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1628,6 +1632,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1836876242}
         m_TargetAssemblyTypeName: CharacterBase, Assembly-CSharp
         m_MethodName: ResetDefense
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1836876242}
+        m_TargetAssemblyTypeName: CharacterBase, Assembly-CSharp
+        m_MethodName: UpdateStrengthRound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

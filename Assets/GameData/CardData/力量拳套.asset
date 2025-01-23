@@ -17,3 +17,5 @@ MonoBehaviour:
   cost: 2
   cardType: 2
   description: "\u589E\u52A0 <color=\"green\">50%</color> \u4F24\u5BB3"
+  effects:
+  - {fileID: 11400000, guid: dc602ed761c04f74395286cf443e3aed, type: 2}
