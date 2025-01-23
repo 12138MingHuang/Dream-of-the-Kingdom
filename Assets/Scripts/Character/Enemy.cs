@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -39,11 +40,25 @@ public class Enemy : CharacterBase
 
     protected virtual void Skill()
     {
-        currentAction.effect.Execute(this,this);
+        StartCoroutine(ProcessDelayAction("skill"));
     }
 
     protected virtual void Attack()
     {
-        currentAction.effect.Execute(this,player);
+        StartCoroutine(ProcessDelayAction("attack"));
+    }
+
+    private IEnumerator ProcessDelayAction(string actionName)
+    {
+        animator.SetTrigger(actionName);
+        yield return new WaitUntil(() =>
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1.0f > 0.6f
+            && !animator.IsInTransition(0)
+            && animator.GetCurrentAnimatorStateInfo(0).IsName(actionName));
+        
+        if(actionName == "attack")
+            currentAction.effect.Execute(this,player);
+        else if(actionName == "skill")
+            currentAction.effect.Execute(this,this);
     }
 }
