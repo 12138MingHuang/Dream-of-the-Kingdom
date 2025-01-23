@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -17,10 +18,15 @@ public class HealthBarController : MonoBehaviour
 
     public Sprite buffSprite;
     public Sprite deBuffSprite;
+
+    private Enemy enemy;
+    private VisualElement intentElement;
+    private Label intentAmount;
     
     private void Awake()
     {
         currentCharacter = GetComponent<CharacterBase>();
+        enemy = GetComponent<Enemy>();
     }
 
     private void Start()
@@ -43,6 +49,8 @@ public class HealthBarController : MonoBehaviour
         defenseAmountLable = healthBar.Q<Label>("DefenseAmount");
         buffElement = healthBar.Q<VisualElement>("Buff");
         buffRound = healthBar.Q<Label>("BuffRound");
+        intentElement = healthBar.Q<VisualElement>("Intent");
+        intentAmount = intentElement.Q<Label>("IntentAmount");
         
         healthBar.highValue = currentCharacter.MaxHP;
         defenseElement.style.display = DisplayStyle.None;
@@ -97,5 +105,24 @@ public class HealthBarController : MonoBehaviour
             buffRound.text = currentCharacter.buffRound.currentValue.ToString();
             buffElement.style.backgroundImage = new StyleBackground(currentCharacter.baseStrength > 1 ? buffSprite : deBuffSprite);
         }
+    }
+
+    public void SetIntentElement()
+    {
+        intentElement.style.display = DisplayStyle.Flex;
+        intentElement.style.backgroundImage = new StyleBackground(enemy.currentAction.intentSprite);
+
+        var value = enemy.currentAction.effect.value;
+        if (enemy.currentAction.effect.GetType() == typeof(DamageEffect))
+        {
+            value = (int)math.round(enemy.currentAction.effect.value * enemy.baseStrength);
+        }
+        
+        intentAmount.text = value.ToString();
+    }
+    
+    public void HideIntentElement()
+    {
+        intentElement.style.display = DisplayStyle.None;
     }
 }
