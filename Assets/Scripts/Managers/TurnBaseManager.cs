@@ -27,7 +27,7 @@ public class TurnBaseManager : MonoBehaviour
             if (timeCounter >= enemyTurnDuration)
             {
                 timeCounter = 0;
-                EnemyTurnBegin();
+                EnemyTurnEnd();
                 isPlayerTurn = true;
             }
         }
