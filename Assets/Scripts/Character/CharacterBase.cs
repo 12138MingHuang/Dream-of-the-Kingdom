@@ -19,6 +19,8 @@ public class CharacterBase : MonoBehaviour
     protected Animator animator;
     public bool isDead;
 
+    public VFXController vfxController;
+    
     protected virtual void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -59,5 +61,13 @@ public class CharacterBase : MonoBehaviour
     public void ResetDefense()
     {
         defense.SetValue(0);
+    }
+    
+    public void HealHealth(int amount)
+    {
+        CurrentHP += amount;
+        CurrentHP = Mathf.Min(CurrentHP, MaxHP);
+        
+        vfxController.BuffPlay();
     }
 }
