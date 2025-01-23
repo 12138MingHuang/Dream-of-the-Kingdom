@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f19492e17f64025be793a2662d6369f, type: 3}
-  m_Name: PlayerStrengthRound
+  m_Script: {fileID: 11500000, guid: 8788b585121a4e5b9b41c98180c8d300, type: 3}
+  m_Name: DrawCardEvent
   m_EditorClassIdentifier: 
-  maxValue: 0
-  currentValue: 0
-  ValueChangedEvent: {fileID: 0}
   description: 
+  lastSender: 

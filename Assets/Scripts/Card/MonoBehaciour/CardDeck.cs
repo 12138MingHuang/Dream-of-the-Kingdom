@@ -6,7 +6,6 @@ using UnityEngine.Rendering;
 
 public class CardDeck : MonoBehaviour
 {
-    public Player player;
     public CardManager cardManager;
     public CardLayoutManager cardLayoutManager;
     public Vector3 deckPosition;
@@ -45,7 +44,7 @@ public class CardDeck : MonoBehaviour
         DrawCard(4);
     }
 
-    private void DrawCard(int amount)
+    public void DrawCard(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
