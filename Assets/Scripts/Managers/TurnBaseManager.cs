@@ -11,6 +11,8 @@ public class TurnBaseManager : MonoBehaviour
     private float timeCounter;
     public float enemyTurnDuration;
     public float playerTurnDuration;
+
+    public GameObject playerObj;
     
     [Header("事件广播")]
     public ObjectEventSO playerTurnBeginEvent;
@@ -68,5 +70,27 @@ public class TurnBaseManager : MonoBehaviour
     {
         isEnemyTurn = false;
         enemyTurnEndEvent?.RaiseEvent(null, this);
+    }
+
+    public void OnRoomLoadedEvent(object obj)
+    {
+        Room room = obj as Room;
+        switch (room.roomData.roomType)
+        {
+
+            case RoomType.MinorEnemy:
+            case RoomType.EliteEnemy:
+            case RoomType.Boss:
+                playerObj.SetActive(true);
+                GameStart();
+                break;
+            case RoomType.Shop:
+            case RoomType.Treasure:
+                playerObj.SetActive(false);
+                break;
+            case RoomType.RestRoom:
+                playerObj.SetActive(true);
+                break;
+        }
     }
 }

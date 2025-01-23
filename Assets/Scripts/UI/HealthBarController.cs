@@ -55,6 +55,7 @@ public class HealthBarController : MonoBehaviour
         healthBar.highValue = currentCharacter.MaxHP;
         defenseElement.style.display = DisplayStyle.None;
         buffElement.style.display = DisplayStyle.None;
+        intentElement.style.display = DisplayStyle.None;
         MoveToWorldPosition(healthBar, healthBarTrans.position, Vector2.zero);
     }
 

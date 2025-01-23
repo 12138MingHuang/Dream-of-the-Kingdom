@@ -140,6 +140,16 @@ public class CardDeck : MonoBehaviour
         handCardObjectList.Clear();
     }
 
+    public void ReleaseAllCards(object obj)
+    {
+        foreach (var card in handCardObjectList)
+        {
+            cardManager.DiscardCard(card.gameObject);
+        }
+        handCardObjectList.Clear();
+        InitializeDeck();
+    }
+    
     [ContextMenu("测试抽牌")]
     public void TestDrawCard()
     {

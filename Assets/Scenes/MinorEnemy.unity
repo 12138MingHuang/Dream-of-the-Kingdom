@@ -623,6 +623,7 @@ MonoBehaviour:
   isDead: 0
   vfxController: {fileID: 1369950863}
   baseStrength: 1
+  characterDeadEvent: {fileID: 11400000, guid: f25daba2d4d7038438561db162114306, type: 2}
   actionDataSo: {fileID: 11400000, guid: 7aa1d7c96a7a3c5499617bb95893159d, type: 2}
   currentAction:
     intentSprite: {fileID: 0}

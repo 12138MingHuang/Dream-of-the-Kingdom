@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -11,15 +12,22 @@ public class SceneLoadManager : MonoBehaviour
     public AssetReference mapScene;
     
     private Vector2Int currentRoomVector;
+    private Room currentRoom;
 
     [Header("广播")]
     public ObjectEventSO afterRoomLoadedEvent;
-    
+    public ObjectEventSO updateRoomEvent;
+
+    private void Start()
+    {
+        currentRoomVector = Vector2Int.one * -1;
+    }
+
     public async void OnLoadRoomEvent(object data)
     {
         if (data is Room)
         {
-            Room currentRoom = (Room)data;
+            currentRoom = (Room)data;
             RoomDataSO currentData = currentRoom.roomData;
             currentRoomVector = new Vector2Int(currentRoom.column, currentRoom.line);
             currentScene = currentData.sceneToLoad;
@@ -33,7 +41,7 @@ public class SceneLoadManager : MonoBehaviour
         // 加载场景
         await LoadSceneTask();
         
-        afterRoomLoadedEvent.RaiseEvent(currentRoomVector, this);
+        afterRoomLoadedEvent.RaiseEvent(currentRoom, this);
     }
 
     /// <summary>
@@ -62,6 +70,11 @@ public class SceneLoadManager : MonoBehaviour
     public async void LoadMap()
     {
         await UnLoadSceneTask();
+
+        if (currentRoomVector != Vector2Int.one * -1)
+        {
+            updateRoomEvent?.RaiseEvent(currentRoomVector, this);
+        }
         
         currentScene = mapScene;
         await LoadSceneTask();

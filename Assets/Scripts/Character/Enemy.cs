@@ -13,13 +13,13 @@ public class Enemy : CharacterBase
     protected override void Awake()
     {
         base.Awake();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     public virtual void OnPlayerTurnBegin()
     {
         var randomIndex = Random.Range(0, actionDataSo.actions.Count);
         currentAction = actionDataSo.actions[randomIndex];
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
     
     public virtual void OnEnemyTurnBegin()
