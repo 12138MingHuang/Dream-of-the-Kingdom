@@ -13,7 +13,7 @@ public class StrengthEffect : Effect
                 from.SetUpStrength(value, true);
                 break;
             case EffectTargetType.Target:
-                from.SetUpStrength(value, false);
+                target.SetUpStrength(value, false);
                 break;
             case EffectTargetType.All:
                 break;

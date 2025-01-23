@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f19492e17f64025be793a2662d6369f, type: 3}
   m_Name: EnemyStrengthRound
   m_EditorClassIdentifier: 
-  maxValue: 1
-  currentValue: 1
+  maxValue: 0
+  currentValue: 0
   ValueChangedEvent: {fileID: 0}
   description: 
