@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoadManager : MonoBehaviour
 {
+    public FadePanel fadePanel;
     private AssetReference currentScene;
     
     public AssetReference mapScene;
@@ -53,9 +54,12 @@ public class SceneLoadManager : MonoBehaviour
     {
         var scene = currentScene.LoadSceneAsync(LoadSceneMode.Additive);
         await scene.Task;
-        
-        if(scene.Status == AsyncOperationStatus.Succeeded)
+
+        if (scene.Status == AsyncOperationStatus.Succeeded)
+        {
+            fadePanel.FadeOut(0.3f);
             SceneManager.SetActiveScene(scene.Result.Scene);
+        }
     }
 
     /// <summary>
@@ -63,7 +67,9 @@ public class SceneLoadManager : MonoBehaviour
     /// </summary>
     private async Awaitable UnLoadSceneTask()
     {
-        await SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        fadePanel.FadeIn(0.4f);
+        await Awaitable.WaitForSecondsAsync(0.45f);
+        await Awaitable.FromAsyncOperation(SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene()));
     }
 
     /// <summary>
