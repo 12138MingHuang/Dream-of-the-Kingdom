@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     public GameObject gamePlayPanel;
     public GameObject gameWinPanel;
     public GameObject gameOverPanel;
+    public GameObject pickCardPanel;
 
     public void OnLoadRoomEvent(object data)
     {
@@ -46,5 +47,10 @@ public class UIManager : MonoBehaviour
     {
         gamePlayPanel.SetActive(false);
         gameOverPanel.SetActive(true);
+    }
+    
+    public void OnPickCardEvent()
+    {
+        pickCardPanel.SetActive(true);
     }
 }
