@@ -31,4 +31,12 @@ public class Player : CharacterBase
         
         if(CurrentMana <= 0) CurrentMana = 0;
     }
+
+    public void NewGame()
+    {
+        CurrentHP = MaxHP;
+        isDead = false;
+        buffRound.currentValue = buffRound.maxValue;
+        NewTurn();
+    }
 }

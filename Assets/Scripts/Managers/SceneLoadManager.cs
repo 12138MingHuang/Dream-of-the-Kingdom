@@ -10,6 +10,7 @@ public class SceneLoadManager : MonoBehaviour
     private AssetReference currentScene;
     
     public AssetReference mapScene;
+    public AssetReference menuScene;
     
     private Vector2Int currentRoomVector;
     private Room currentRoom;
@@ -21,6 +22,7 @@ public class SceneLoadManager : MonoBehaviour
     private void Start()
     {
         currentRoomVector = Vector2Int.one * -1;
+        LoadMenu();
     }
 
     public async void OnLoadRoomEvent(object data)
@@ -77,6 +79,14 @@ public class SceneLoadManager : MonoBehaviour
         }
         
         currentScene = mapScene;
+        await LoadSceneTask();
+    }
+    
+    public async void LoadMenu()
+    {
+        if(currentScene != null)
+            await UnLoadSceneTask();
+        currentScene = menuScene;
         await LoadSceneTask();
     }
 }

@@ -24,6 +24,7 @@ public class Enemy : CharacterBase
     
     public virtual void OnEnemyTurnBegin()
     {
+        ResetDefense();
         switch (currentAction.effect.targetType)
         {
 
