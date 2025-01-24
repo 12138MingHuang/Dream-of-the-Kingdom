@@ -54,8 +54,12 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(EventDelayAction(gameOverEvent));
         }
-        
-        if(character is Enemy)
+
+        if (character is Boss)
+        {
+            StartCoroutine(EventDelayAction(gameOverEvent));
+        }
+        else if(character is Enemy)
         {
             aliveEnemyList.Remove(character as Enemy);
             if(aliveEnemyList.Count == 0)
@@ -63,6 +67,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(EventDelayAction(gameWinEvent));
             }
         }
+        
     }
 
     IEnumerator EventDelayAction(ObjectEventSO eventSO)
