@@ -15,4 +15,9 @@ public class GameOverPanel : MonoBehaviour
     {
         loadMenuEvent?.RaiseEvent(null, this);
     }
+
+    private void OnDisable()
+    {
+        GetComponent<UIDocument>().rootVisualElement.Q<Button>("BackToStartButton").clicked -= BackToStart;
+    }
 }

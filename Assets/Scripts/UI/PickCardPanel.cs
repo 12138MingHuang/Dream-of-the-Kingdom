@@ -85,4 +85,9 @@ public class PickCardPanel : MonoBehaviour
             _ => throw new ArgumentOutOfRangeException()
         };
     }
+
+    private void OnDisable()
+    {
+        confirmButton.clicked -= OnConfirmButtonClicked;
+    }
 }

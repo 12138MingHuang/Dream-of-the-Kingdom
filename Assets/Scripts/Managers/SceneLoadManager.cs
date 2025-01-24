@@ -13,13 +13,13 @@ public class SceneLoadManager : MonoBehaviour
     public AssetReference menuScene;
     
     private Vector2Int currentRoomVector;
-    private Room currentRoom;
+    private Room currentRoom; 
 
     [Header("广播")]
     public ObjectEventSO afterRoomLoadedEvent;
     public ObjectEventSO updateRoomEvent;
 
-    private void Start()
+    private void Awake()
     {
         currentRoomVector = Vector2Int.one * -1;
         LoadMenu();

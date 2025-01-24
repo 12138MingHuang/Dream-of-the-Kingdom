@@ -1,44 +1,42 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class GameWinPanel : MonoBehaviour
+public class RestPanel : MonoBehaviour
 {
     private VisualElement rootElement;
-    private Button pickCardButton;
+    private Button restButton;
     private Button backToMapButton;
 
-    [Header("事件广播")]
+    public Effect restEffect;
+
+    private CharacterBase player;
     public ObjectEventSO loadMapEvent;
-    public ObjectEventSO pickCardEvent;
 
     private void OnEnable()
     {
         rootElement = GetComponent<UIDocument>().rootVisualElement;
-        pickCardButton = rootElement.Q<Button>("PickCardButton");
+        restButton = rootElement.Q<Button>("RestButton");
         backToMapButton = rootElement.Q<Button>("BackToMapButton");
 
+        player = FindAnyObjectByType<Player>(FindObjectsInactive.Include);
+        
+        restButton.clicked += OnRestButtonClicked;
         backToMapButton.clicked += OnBackToMapButtonClicked;
-        pickCardButton.clicked += OnPickCardButtonClicked;
     }
-    
     private void OnBackToMapButtonClicked()
     {
         loadMapEvent?.RaiseEvent(null, this);
     }
-    private void OnPickCardButtonClicked()
+    private void OnRestButtonClicked()
     {
-        pickCardEvent?.RaiseEvent(null, this);
-    }
-
-    public void OnFinishPickCardEvent()
-    {
-        pickCardButton.style.display = DisplayStyle.None;
+        restEffect.Execute(player, null);
+        restButton.SetEnabled(false);
     }
 
     private void OnDisable()
     {
+        restButton.clicked -= OnRestButtonClicked;
         backToMapButton.clicked -= OnBackToMapButtonClicked;
-        pickCardButton.clicked -= OnPickCardButtonClicked;
     }
 }

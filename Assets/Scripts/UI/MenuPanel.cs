@@ -24,4 +24,10 @@ public class MenuPanel : MonoBehaviour
         newGameEvent?.RaiseEvent(null, this);
     }
     private void OnQuitButtonClicked() => Application.Quit();
+
+    private void OnDisable()
+    {
+        newGameButton.clicked -= OnNewGameButtonClicked;
+        quitButton.clicked -= OnQuitButtonClicked;
+    }
 }
