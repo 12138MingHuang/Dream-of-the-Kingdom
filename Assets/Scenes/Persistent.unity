@@ -2849,6 +2849,12 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_SubObjectType: 
     m_EditorAssetChanged: 1
+  introScene:
+    m_AssetGUID: 7edc8db2f1ac86841bdcd401f4a3d1a9
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   afterRoomLoadedEvent: {fileID: 11400000, guid: 48f4a9f9e7a9dce4e90ebfd94663d2de, type: 2}
   updateRoomEvent: {fileID: 11400000, guid: c51f47031ea38304e8540ac9255ac55f, type: 2}
 --- !u!114 &2035972978
