@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 190687698}
   - component: {fileID: 190687697}
   - component: {fileID: 190687699}
+  - component: {fileID: 190687700}
   m_Layer: 0
   m_Name: GameWinPanel
   m_TagString: Untagged
@@ -216,6 +217,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadMapEvent: {fileID: 11400000, guid: 5f7a568ea07e2be4fa5b906d08116c85, type: 2}
   pickCardEvent: {fileID: 11400000, guid: 68f806a28dc4c9a49a8f014ab173eaea, type: 2}
+--- !u!114 &190687700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190687696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ee7e3764a64e5ba649b4ba8c08248e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSO: {fileID: 11400000, guid: 5385e37cb03556f46816a03c1a577238, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 190687699}
+        m_TargetAssemblyTypeName: GameWinPanel, Assembly-CSharp
+        m_MethodName: OnFinishPickCardEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &211368612
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 211368614}
   - component: {fileID: 211368613}
+  - component: {fileID: 211368615}
   m_Layer: 0
   m_Name: PickCardPanel
   m_TagString: Untagged
@@ -267,6 +297,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &211368615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211368612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c833cb1c3c1254382feb4b666b7d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardTemplate: {fileID: 9197481963319205126, guid: 7016c2c660842674fb9fa2c11158cb41, type: 3}
+  cardManager: {fileID: 359367223}
+  finishPickCardEvent: {fileID: 11400000, guid: 5385e37cb03556f46816a03c1a577238, type: 2}
 --- !u!1 &217698948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,6 +1736,7 @@ GameObject:
   - component: {fileID: 1514728898}
   - component: {fileID: 1514728897}
   - component: {fileID: 1514728901}
+  - component: {fileID: 1514728902}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -1860,6 +1906,34 @@ MonoBehaviour:
       - m_Target: {fileID: 1514728896}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnPickCardEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1514728902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514728894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ee7e3764a64e5ba649b4ba8c08248e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSO: {fileID: 11400000, guid: 5385e37cb03556f46816a03c1a577238, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1514728896}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnFinishPickCardEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

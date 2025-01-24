@@ -30,4 +30,9 @@ public class GameWinPanel : MonoBehaviour
     {
         pickCardEvent?.RaiseEvent(null, this);
     }
+
+    public void OnFinishPickCardEvent()
+    {
+        pickCardButton.style.display = DisplayStyle.None;
+    }
 }

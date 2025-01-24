@@ -14,6 +14,8 @@ public class CardManager : MonoBehaviour
     public CardLibrarySO newGameCardLibrary; // 新游戏时初始化的卡牌库
     public CardLibrarySO currentCardLibrary; // 当前玩家使用的卡牌库
 
+    private int previousIndex;
+
     private void Awake()
     {
         InitializeCardDataList();
@@ -67,5 +69,35 @@ public class CardManager : MonoBehaviour
     public void DiscardCard(GameObject cardObj)
     {
         poolTool.ReturnObjectToPool(cardObj);
+    }
+
+    public CardDataSO GetNewCardData()
+    {
+        int randomIndex = 0;
+        do
+        {
+            randomIndex = UnityEngine.Random.Range(0, cardDataList.Count);
+        } while (previousIndex == randomIndex);
+        previousIndex = randomIndex;
+        return cardDataList[randomIndex];
+    }
+
+    public void UnlockCard(CardDataSO cardData)
+    {
+        CardLibraryEntry newCard = new CardLibraryEntry
+        {
+            cardData = cardData,
+            amount = 1
+        };
+
+        if (currentCardLibrary.cardLibraryList.Contains(newCard))
+        {
+            var target = currentCardLibrary.cardLibraryList.Find(x => x.cardData == cardData);
+            target.amount++;
+        }
+        else
+        {
+            currentCardLibrary.cardLibraryList.Add(newCard);
+        }
     }
 }
